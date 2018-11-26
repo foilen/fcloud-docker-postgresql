@@ -6,10 +6,16 @@ LAST_PASS=$(cat /var/lib/postgresql/data/lastPass)
 set -e
 NEW_PASS=$(cat /newPass)
 
+# Default auth method if not in the environment
+if [ -z "$AUTH_METHOD" ]; then
+	export AUTH_METHOD=scram-sha-256
+fi
+echo Using AUTH_METHOD: $AUTH_METHOD
+
 # Initializing if not done
 if [ ! -f /var/lib/postgresql/data/postgresql.conf ]; then
   echo Initializing the DB
-  /usr/lib/postgresql/11/bin/initdb -D /var/lib/postgresql/data/ --auth=scram-sha-256 --pwfile=/newPass
+  /usr/lib/postgresql/11/bin/initdb -D /var/lib/postgresql/data/ --auth=$AUTH_METHOD --pwfile=/newPass
   LAST_PASS=$NEW_PASS
   echo "*:*:*:*:$NEW_PASS" > /var/lib/postgresql/data/pgpass
   chown postgres:postgres /var/lib/postgresql/data/pgpass
