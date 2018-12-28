@@ -22,6 +22,17 @@ if [ ! -f /var/lib/postgresql/data/postgresql.conf ]; then
   chmod 600 /var/lib/postgresql/data/pgpass
 fi
 
+# Whitelist hosts
+cat > /var/lib/postgresql/data/pg_hba.conf << _EOF
+local   all             all                                     $AUTH_METHOD
+host    all             all             127.0.0.1/32            $AUTH_METHOD
+host    all             all             ::1/128                 $AUTH_METHOD
+host    all             all             172.17.0.1/24           $AUTH_METHOD
+local   replication     all                                     $AUTH_METHOD
+host    replication     all             127.0.0.1/32            $AUTH_METHOD
+host    replication     all             ::1/128                 $AUTH_METHOD
+_EOF
+
 # Start
 echo Starting
 chmod 750 /var/lib/postgresql/data
@@ -41,4 +52,3 @@ if [ "$LAST_PASS" != "$NEW_PASS" ]; then
 fi
 
 wait $APP_PID
-
