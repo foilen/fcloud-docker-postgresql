@@ -4,13 +4,13 @@ set -e
 
 # Check params
 if [ $# -ne 1 ]
-	then
-		echo Usage: $0 version;
+  then
+    echo Usage: $0 version;
     echo E.g: $0 0.1.0
-		echo Version is MAJOR.MINOR.BUGFIX
-		echo Latest versions:
-		git tag | tail -n 5
-		exit 1;
+    echo Version is MAJOR.MINOR.BUGFIX
+    echo Latest version:
+    git describe --abbrev=0
+    exit 1;
 fi
 
 # Set environment

@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/library/postgres/tags/
-FROM postgres:11.1
+FROM postgres:11.4
 
 RUN export TERM=dumb ; \
   apt-get update && apt-get install -y \
