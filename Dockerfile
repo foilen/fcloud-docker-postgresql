@@ -1,11 +1,11 @@
 # https://hub.docker.com/r/library/postgres/tags/
-FROM postgres:11.9
+FROM postgres:12.4
 
 RUN export TERM=dumb ; \
   apt-get update && apt-get install -y \
-    haproxy=1.7.5-2 \
+    haproxy=1.8.19-1+deb10u2 \
     pgloader \
-    supervisor=3.3.1-1+deb9u1 \
+    supervisor=3.3.5-1 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY assets /
