@@ -15,7 +15,7 @@ echo Using AUTH_METHOD: $AUTH_METHOD
 # Initializing if not done
 if [ ! -f /var/lib/postgresql/data/postgresql.conf ]; then
   echo Initializing the DB
-  /usr/lib/postgresql/12/bin/initdb -D /var/lib/postgresql/data/ --auth=$AUTH_METHOD --pwfile=/newPass
+  /usr/lib/postgresql/13/bin/initdb -D /var/lib/postgresql/data/ --auth=$AUTH_METHOD --pwfile=/newPass
   LAST_PASS=$NEW_PASS
   echo "*:*:*:*:$NEW_PASS" > /var/lib/postgresql/data/pgpass
   chown postgres:postgres /var/lib/postgresql/data/pgpass
@@ -36,7 +36,7 @@ _EOF
 # Start
 echo Starting
 chmod 750 /var/lib/postgresql/data
-/usr/lib/postgresql/12/bin/postgres -D /var/lib/postgresql/data/ &
+/usr/lib/postgresql/13/bin/postgres -D /var/lib/postgresql/data/ &
 APP_PID=$!
 echo Started
 
