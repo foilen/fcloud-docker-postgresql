@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/library/postgres/tags/
-FROM postgres:13.2
+FROM postgres:13.4
 
 RUN export TERM=dumb ; \
   apt-get update && apt-get install -y \
@@ -7,6 +7,6 @@ RUN export TERM=dumb ; \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY assets /
-CMD chmod 755 /*.sh
+RUN chmod 755 /*.sh
 
 CMD /bin/bash
